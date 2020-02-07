@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Fri Feb  7 09:55:09 2020 as: nmap -sP -oX /var/folders/c1/f0tm33sd3tgg_ds8kyhykyw80000gn/T/briefly-1581/hades-65709-212656-3hades/test.xml 192.168.120.42 -->
+<nmaprun scanner="nmap" args="nmap -sP -oX /var/folders/c1/f0tm33sd3tgg_ds8kyhykyw80000gn/T/briefly-1581/hades-65709-212656-3hades/test.xml 192.168.120.42" start="1581065709" startstr="Fri Feb  7 09:55:09 2020" version="7.80" xmloutputversion="1.04">
+<verbose level="0"/>
+<debugging level="0"/>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.120.42" addrtype="ipv4"/>
+<hostnames>
+<hostname name="FelixsMACNCHEESEPRO.root.box" type="PTR"/>
+</hostnames>
+<times srtt="241" rttvar="5000" to="100000"/>
+</host>
+<runstats><finished time="1581065709" timestr="Fri Feb  7 09:55:09 2020" elapsed="0.03" summary="Nmap done at Fri Feb  7 09:55:09 2020; 1 IP address (1 host up) scanned in 0.03 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
