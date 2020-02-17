@@ -135,7 +135,7 @@ defmodule Hades.Helpers do
 
   @doc """
   Prepares the command to be executed, by converting the `%Command{}` into
-  proper parameters to be feeded to NMAP.
+  proper parameters to be fed to NMAP.
 
   Under normal circumstances `Hades.scan/1` should be used, use `prepare`
   only when converted args are needed.
@@ -152,7 +152,6 @@ defmodule Hades.Helpers do
       {"--script vulners --version-all -sV", "192.168.0.1"}
 
   """
-  # TODO: Refactor with some input validation
   @spec prepare(command :: Command.t()) :: {binary() | nil, list(binary)}
   def prepare(%Command{scan_types: scan_types, target: target}) do
     if (length(scan_types) == 0) do
