@@ -155,11 +155,11 @@ defmodule Hades.Helpers do
   @spec prepare(command :: Command.t()) :: {binary() | nil, list(binary)}
   def prepare(%Command{scan_types: scan_types, target: target}) do
     if (length(scan_types) == 0) do
-      Logger.error("Must specify atleast one scan type")
+      raise ArgumentError, "Must specify atleast one scan type"
     end
 
     if (target == "") do
-      Logger.error("Must specify a target")
+      raise ArgumentError, "Must specify a target"
     end
     options = Enum.map(scan_types, &arg_for_option/1) |> List.flatten()
     {Enum.join(options, " "), target}
