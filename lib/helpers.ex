@@ -3,7 +3,7 @@ defmodule Hades.Helpers do
   Provides some usefull functions for internal handling `NMAP` outputs.
   """
   import SweetXml
-
+  require Logger
   alias Hades.Command
   alias Hades.Argument
 
@@ -135,7 +135,7 @@ defmodule Hades.Helpers do
 
   @doc """
   Prepares the command to be executed, by converting the `%Command{}` into
-  proper parameters to be feeded to NMAP.
+  proper parameters to be fed to NMAP.
 
   Under normal circumstances `Hades.scan/1` should be used, use `prepare`
   only when converted args are needed.
@@ -152,9 +152,15 @@ defmodule Hades.Helpers do
       {"--script vulners --version-all -sV", "192.168.0.1"}
 
   """
-  # TODO: Refactor with some input validation
   @spec prepare(command :: Command.t()) :: {binary() | nil, list(binary)}
   def prepare(%Command{scan_types: scan_types, target: target}) do
+    if (length(scan_types) == 0) do
+      raise ArgumentError, "Must specify atleast one scan type"
+    end
+
+    if (target == "") do
+      raise ArgumentError, "Must specify a target"
+    end
     options = Enum.map(scan_types, &arg_for_option/1) |> List.flatten()
     {Enum.join(options, " "), target}
   end
