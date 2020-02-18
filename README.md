@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.com/fklement/hades.svg?branch=master)](https://travis-ci.com/fklement/hades)
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/hades.svg?style=flat)](https://hex.pm/packages/hades)
 [![hex.pm licence](https://img.shields.io/hexpm/l/hades.svg?style=flat)](https://hex.pm/packages/hades)
+[![Gitter](https://badges.gitter.im/HadesEx/community.svg)](https://gitter.im/HadesEx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 A wrapper for `NMAP` written in [Elixir](http://elixir-lang.org/).
 > Used version: Nmap 7.80 
