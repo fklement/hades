@@ -65,21 +65,32 @@ defmodule Hades do
   end
 
   @doc """
-  This function adds the ability to add a specific `target_ip` to the nmap `command`.
+  This function adds the ability to add a specific `target_ip` to the nmap `command` or scan a subnet
+  of a given `target_ip`.
+
   Currently there are only standard formatted IPv4 adresses supported.
   Inputs with trailing subnmasks are not supported, but I'll work on this in the future.
 
-  Returns a `%Hades.Command{}` with the added `target_ip`.
+  Returns a `%Hades.Command{}` with the added `target_ip` in case of single target scan, otherwise 
+  will return a `%Hades.Command{}` with the added `target_ip` and subnet to be scanned.
 
   ## Example
       iex> Hades.new_command()
       ...> |> Hades.add_target("192.168.120.42")
       %Hades.Command{scan_types: [], target: "192.168.120.42"}
+
+    ## Example for subnet scan
+      iex> Hades.new_command()
+      ...> |> Hades.add_target("192.168.120.42/24")
+      %Hades.Command{scan_types: [], target: "192.168.120.42/24"}
   """
   def add_target(%Command{} = command, target_ip) do
+    target_ip_and_subnet = String.splitter(target_ip, ["/"]) |> Enum.take(2)
+    ip_address = Enum.at(target_ip_and_subnet, 0)
+    subnet = Enum.at(target_ip_and_subnet, 1)
     target_ip =
-      case Helpers.check_ip_address(target_ip) do
-        {:ok, ip} -> ip
+      case Helpers.check_ip_address(ip_address) do
+        {:ok, ip} -> if subnet == nil do ip else "#{ip}#{"/"}#{subnet}" end
         _ -> nil
       end
 
