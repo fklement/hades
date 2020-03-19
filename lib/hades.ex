@@ -115,4 +115,5 @@ defmodule Hades do
     Helpers.validate_contexts!(context, [:scan_type, :option])
     %Command{command | scan_types: [scan_type | scan_types]}
   end
+  
 end
