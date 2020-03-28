@@ -108,6 +108,46 @@ iex> Hades.new_command()
 > **INFO**: Currently only standard single IPv4 specified targets are supported. In the future I'll add support for IPv4 ranges specified with a subnetmask.
 > This will enable the functionality to scan targets in a specified IP range.
 
+### Simple ping scan for a subnet
+The snippet below ping scans the network, and lists the target machine if it responds to ping.
+```elixir
+iex> Hades.new_command()
+...> |> Hades.add_argument(Hades.Arguments.ScanTechniques.arg_sP())
+...> |> Hades.add_target("192.168.120.42/24")
+...> |> Hades.scan()
+02:28:50.664 [info]  NMAP Output: "Starting Nmap 7.80 ( https://nmap.org ) at 2020-03-02 02:28 W. Central Africa Standard Time\r\n"
+
+02:29:09.001 [info]  NMAP Output: "Nmap scan report for 192.168.100.1\r\n"
+
+02:29:09.001 [info]  NMAP Output: "Host is up (0.00s latency).\r\nMAC Address: F8:75:88:9D:F9:B5 (Huawei Technologies)\r\n"
+
+02:29:09.001 [info]  NMAP Output: "Nmap scan report for 192.168.100.2\r\n"
+
+02:29:09.001 [info]  NMAP Output: "Host is up (0.047s latency).\r\nMAC Address: 78:31:C1:D0:87:8E (Apple)\r\n"
+
+02:29:24.300 [info]  NMAP Output: "Nmap scan report for 192.168.100.3\r\n"
+
+02:29:24.300 [info]  NMAP Output: "Host is up.\r\n"
+
+02:29:26.568 [info]  NMAP Output: "Nmap done: 256 IP addresses (3 hosts up) scanned in 36.03 seconds\r\n"
+
+02:29:26.584 [info]  Port exit: :exit_status: 0
+
+
+02:29:26.584 [info]  DOWN message from port: #Port<0.83>
+%{
+  hosts: [
+    %{hostname: "", ip: "192.168.100.1F8:75:88:9D:F9:B5", ports: []},
+    %{hostname: "", ip: "192.168.100.278:31:C1:D0:87:8E", ports: []},
+    %{hostname: "", ip: "192.168.100.3", ports: []}
+  ],
+  time: %{
+    elapsed: 36.03,
+    endstr: "Mon Mar 02 02:29:26 2020",
+    unix: 1583112566
+}
+```
+
 ### Using the script argument
 The execution of `nmap -sV -version-all -script vulners` in `Hades` looks like the following:
 ```elixir
@@ -193,6 +233,8 @@ iex> Hades.new_command()
   }
 }
 ```
+
+
 Here the [nmap-vulners](https://github.com/vulnersCom/nmap-vulners) NSE script is used to provide informations on vulnerabilities of well-known services that are running on the target host.
 
 ## General Informations

@@ -42,9 +42,17 @@ defmodule Hades.NMAP do
     Process.flag(:trap_exit, true)
 
     path = Helpers.hades_path()
+  
+    target_vector = String.splitter("#{target}", ["/"]) |> Enum.take(2)
+    command = if (length(target_vector) == 2) do 
+      subnet = Enum.at(target_vector, 1)
+      "nmap #{option} -oX #{path} #{target} / #{subnet}"
+    else
+      "nmap #{option} -oX #{path} #{target}"
+    end
 
     port =
-      Port.open({:spawn, "nmap #{option} -oX #{path} #{target}"}, [
+      Port.open({:spawn, command}, [
         :binary,
         :exit_status
       ])
